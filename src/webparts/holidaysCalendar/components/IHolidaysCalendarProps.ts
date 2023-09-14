@@ -13,4 +13,8 @@ export interface IHolidaysCalendarProps {
 	showDownload: boolean;
 	showFixedOptional: boolean;
 	title: string;
+	minHeight:string;
+	minWidth:string;
+	showBorder:boolean;
+	backgroundColor:string;
 }

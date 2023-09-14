@@ -14,6 +14,10 @@ export interface IHolidaysCalendarWebPartProps {
 	enableDownload: boolean;
 	title: string;
 	showFixedOptional: boolean;
+	minHeight:string;
+	minWidth:string;
+	showBorder:boolean;
+	backgroundColor:string;
 }
 
 export default class HolidaysCalendarWebPart extends BaseClientSideWebPart<IHolidaysCalendarWebPartProps> {
@@ -34,6 +38,10 @@ export default class HolidaysCalendarWebPart extends BaseClientSideWebPart<IHoli
 			showDownload: this.properties.enableDownload ?? false,
 			title: this.properties.title,
 			showFixedOptional: this.properties.showFixedOptional,
+			minHeight:this.properties.minHeight,
+			minWidth:this.properties.minWidth,
+			showBorder:this.properties.showBorder,
+			backgroundColor:this.properties.backgroundColor
 		});
 
 		ReactDom.render(element, this.domElement);
@@ -132,6 +140,20 @@ export default class HolidaysCalendarWebPart extends BaseClientSideWebPart<IHoli
 									key: "showFixedOptional",
 									label: "Show Fixed Optional Icons",
 									checked: false,
+								}),
+								PropertyPaneTextField("minHeight", {
+									label: "Enter Height",
+								}),
+								PropertyPaneTextField("minWidth", {
+									label: "Enter Width",
+								}),
+								PropertyPaneToggle("showBorder", {
+									key: "showBorder",
+									label: "Show Border",
+									checked: false,
+								}),
+								PropertyPaneTextField("backgroundColor", {
+									label: "Enter Background Color",
 								}),
 							],
 						},

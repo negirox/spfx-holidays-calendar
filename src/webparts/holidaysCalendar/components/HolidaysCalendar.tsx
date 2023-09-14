@@ -44,28 +44,38 @@ const HolidaysCalendar = (props: IHolidaysCalendarProps) => {
 	/* eslint-disable */
 	React.useEffect(() => {
 		(async () => {
-			let employeeInfo:IEmployeeInfo;
-			try{
+			let employeeInfo: IEmployeeInfo = null;
+			/*try{
 				employeeInfo  = await service.getEmployeeInfo();
 			}catch(ex){
 				console.log("insufficient permission to get employee info.");
-				
 			}
 			let listItems : IHoliday[];
-			if(employeeInfo){
+			if(employeeInfo !== null){
 				listItems = await service.getHolidaysByLocation(employeeInfo.officeLocation);
 			}
 			else{
 				listItems = await service.getHolidaysByLocation('');
-			}
+			} */
+			let listItems: IHoliday[] = await service.getHolidaysByLocation('');
 			const holidayItems = service.getHolidayItemsToRender(listItems);
 
-			setState((prevState: IHolidaysCalendarState) => ({ ...prevState, listItems: listItems, holidayListItems: holidayItems, employeeInfo: employeeInfo }));
+			setState((prevState: IHolidaysCalendarState) => ({
+				...prevState, listItems: listItems,
+				holidayListItems: holidayItems, employeeInfo: employeeInfo
+			}));
 		})();
 	}, []);
 	return (
 		<>
-			<FluentProvider theme={webLightTheme}>
+			<FluentProvider theme={webLightTheme} style={{
+				border: props.showBorder === true ? '1px solid' : 'none',
+				minHeight: props.minHeight, minWidth: props.minWidth,
+				padding:'2%',
+				backgroundColor:props.backgroundColor,
+				overflow:'auto',
+				maxHeight:'28rem'		
+			}}>
 				{state.message.show && (
 					<Alert intent={state.message.intent} action={{ icon: <DismissCircleRegular aria-label="dismiss message" onClick={handleDismissClick} /> }}>
 						{state.message.intent === "success" ? "Holiday added in calendar" : "Some error occurred"}
